@@ -9,6 +9,7 @@
 | 연구 글 | `src/data/research.ts` |
 | 수업자료 | `src/data/materials.ts` |
 | 포인트 색상 | `tailwind.config.js` 의 `accent` 값 |
+| 관리자(댓글 삭제 권한) 이메일 | `src/config.ts` 의 `adminEmails` + `firestore.rules` (둘 다) |
 
 각 파일 맨 위에 한국어로 수정 방법이 적혀 있습니다.
 내 이미지를 쓰려면 `public` 폴더에 사진을 넣고, 데이터 파일에서 `'/사진이름.jpg'` 처럼 적으면 됩니다.
@@ -24,8 +25,14 @@
 - `src/pages/` — 각 페이지 화면 (홈, 연구 목록/상세, 수업자료, 소개, 404)
 - `src/components/` — 여러 페이지에서 같이 쓰는 부분 (상단 메뉴, 푸터, 카드, 토론 자리)
 - `src/services/` — 데이터를 가져오는 함수. 나중에 이 안쪽만 Firestore로 바꿉니다.
-- `src/lib/firebase.ts` — Firebase 설정이 들어갈 자리 (지금은 안내 주석만 있음)
-- `.env.example` — Firebase 설정 값의 이름 목록 (실제 값은 나중에 `.env` 에)
+- `src/lib/firebase.ts` — Firebase 연결. 설정 값은 환경변수에서 읽습니다.
+- `src/lib/auth.tsx` — 구글 로그인 상태 관리
+- `src/services/commentService.ts` — 토론 댓글 저장·읽기·삭제
+- `firestore.rules` — Firestore 보안 규칙 (Firebase 콘솔의 "규칙" 탭에 붙여넣는 내용)
+- `.env.example` — Firebase 설정 값의 이름 목록
 
-## 아직 준비 중인 것
-- 로그인 버튼, 토론(댓글) 영역은 모양만 있고 동작하지 않습니다. Firebase 연결 단계에서 만듭니다.
+## 로그인·토론 기능
+- 구글 계정으로 로그인한 사람만 댓글을 보고 쓸 수 있습니다.
+- 본인 댓글은 본인이, 모든 댓글은 관리자(교수)가 삭제할 수 있습니다. 수정은 할 수 없습니다.
+- Firebase 설정 값이 비어 있으면 로그인·토론은 "준비 중"으로 보이고, 나머지 사이트는 정상 작동합니다.
+- 댓글은 Firestore의 `research/{연구 id}/comments` 에 저장됩니다.

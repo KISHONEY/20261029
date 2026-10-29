@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
+import { AuthProvider } from './lib/auth';
 import { siteConfig } from './config';
 import AboutPage from './pages/AboutPage';
 import HomePage from './pages/HomePage';
@@ -16,17 +17,19 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/research" element={<ResearchListPage />} />
-          <Route path="/research/:id" element={<ResearchDetailPage />} />
-          <Route path="/materials" element={<MaterialsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/research" element={<ResearchListPage />} />
+            <Route path="/research/:id" element={<ResearchDetailPage />} />
+            <Route path="/materials" element={<MaterialsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

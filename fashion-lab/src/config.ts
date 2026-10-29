@@ -16,12 +16,16 @@ export const siteConfig = {
 
   // 소개(About) 페이지에 들어갈 교수 정보
   professor: {
-    name: '홍길동',
+    name: '정기성',
     title: '패션디자인학과 교수',
     photoUrl: 'https://placehold.co/600x750/e7e5e4/57534e?text=Profile',
     bio: '지속가능한 패션 디자인과 디지털 패턴 기술을 연구합니다. 전통 복식의 구조를 현대 디자인 언어로 다시 해석하는 작업에 관심이 많습니다.',
     researchAreas: ['지속가능 패션', '제로 웨이스트 패턴', '디지털 패션·3D 가상착장', '한국 전통 복식의 현대화'],
-    email: 'professor@example.ac.kr',
+    email: 'kisungjeong30@gmail.com',
     office: '예술관 000호',
   },
+
+  // 관리자 이메일: 이 계정으로 로그인하면 모든 댓글을 지울 수 있습니다.
+  // ⚠️ 바꿀 때는 firestore.rules 파일의 이메일도 똑같이 바꿔서 Firebase에 다시 붙여넣어야 합니다.
+  adminEmails: ['kisungjeong30@gmail.com'],
 };

@@ -1,0 +1,48 @@
+// Firestore 보안 규칙 — "누가 무엇을 읽고 쓸 수 있는지" 정하는 규칙입니다.
+// 이 파일 내용을 통째로 복사해서 Firebase 콘솔 > Firestore Database > 규칙(Rules) 탭에 붙여넣고 "게시"를 누르세요.
+// 관리자 이메일을 바꾸면 src/config.ts 의 adminEmails 도 같이 바꿔 주세요.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'kisungjeong30@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    match /research/{researchId}/comments/{commentId} {
+      // 댓글 보기: 로그인한 사람만 (학생 이름이 검색엔진에 노출되지 않도록)
+      allow read: if signedIn();
+
+      // 댓글 쓰기: 로그인한 본인 이름으로만, 정해진 항목과 길이로만
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['text', 'authorUid', 'authorName', 'authorPhotoUrl', 'createdAt'])
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 1000
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() <= 100
+        && request.resource.data.authorPhotoUrl is string
+        && request.resource.data.authorPhotoUrl.size() <= 500
+        && request.resource.data.createdAt == request.time;
+
+      // 댓글 수정: 허용하지 않음
+      allow update: if false;
+
+      // 댓글 삭제: 쓴 사람 본인 또는 관리자(교수)
+      allow delete: if signedIn()
+        && (resource.data.authorUid == request.auth.uid || isAdmin());
+    }
+
+    // 그 밖의 모든 데이터는 막아 둡니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

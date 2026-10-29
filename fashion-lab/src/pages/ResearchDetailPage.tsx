@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import DiscussionPlaceholder from '../components/DiscussionPlaceholder';
+import Discussion from '../components/Discussion';
 import { TagList } from '../components/ItemCard';
 import LinkList from '../components/LinkList';
 import { LoadError, Loading } from '../components/StatusMessage';
@@ -44,7 +44,7 @@ export default function ResearchDetailPage() {
         </section>
       )}
 
-      <DiscussionPlaceholder />
+      <Discussion researchId={item.id} />
     </article>
   );
 }
