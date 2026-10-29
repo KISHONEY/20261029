@@ -1,0 +1,10 @@
+node_modules
+dist
+*.log
+.DS_Store
+
+# 비밀 값(Firebase 키 등)이 들어가는 파일 — GitHub에 올라가지 않도록 막습니다.
+.env
+.env.*
+!.env.example
+*.tsbuildinfo

@@ -1,0 +1,11 @@
+# Netlify가 이 파일을 읽고 자동으로 설정합니다. (따로 입력할 필요 없음)
+[build]
+  base = "fashion-lab"
+  command = "npm run build"
+  publish = "dist"
+
+# 주소창에 /research/... 를 직접 입력하거나 새로고침해도 404가 나지 않게 합니다.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

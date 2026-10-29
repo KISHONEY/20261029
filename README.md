@@ -34,3 +34,6 @@
 - 대상 도구(에이전트형/에디터형)별 조정 단계 추가
 - 응답 끝에 **다음 단계 제안**(후속 프롬프트) 추가
 - 예시의 드래그앤드롭 라이브러리를 유지보수 중인 `@dnd-kit`으로 확정
+
+## 🧵 Fashion Research Lab 웹사이트
+[`fashion-lab/`](fashion-lab/) 폴더에 패션디자인 연구·수업 아카이브 웹사이트(MVP)가 있습니다. 사용법은 [`fashion-lab/README.md`](fashion-lab/README.md)를 보세요. Netlify 배포 설정은 루트의 `netlify.toml`에 있습니다.

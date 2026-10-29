@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    word-break: keep-all; /* 한국어 단어가 중간에 끊기지 않게 */
+  }
+  h1, h2, h3 {
+    @apply font-serif;
+    font-variant-numeric: lining-nums; /* 숫자가 아래로 처지지 않게 */
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.2em] text-stone-500;
+  }
+}
