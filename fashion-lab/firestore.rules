@@ -40,6 +40,14 @@ service cloud.firestore {
         && (resource.data.authorUid == request.auth.uid || isAdmin());
     }
 
+    // 지식 창고(Input)·결과물(Output): 관리자(교수)만 읽고 쓴다 (knowledge-admin.html)
+    match /knowledge_input/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /knowledge_output/{docId} {
+      allow read, write: if isAdmin();
+    }
+
     // 그 밖의 모든 데이터는 막아 둡니다.
     match /{document=**} {
       allow read, write: if false;
